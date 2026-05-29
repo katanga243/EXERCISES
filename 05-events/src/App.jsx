@@ -1,19 +1,23 @@
 /*
-  Exercise 05 - Events
+  Exercise 05 - Events (AlertClock)
 
-  Q: How do you handle events in React?
-  A: React uses camelCase event props (e.g. onClick, onChange) and you pass a
-     FUNCTION REFERENCE as the handler, e.g. onClick={showTime}. You do NOT call
-     the function inline (onClick={showTime()} would run it during render), and
-     you avoid inlining the whole logic so the handler stays reusable and readable.
+  The click handler (showCurrentTime) is defined HERE in App and passed down to
+  AlertClock as a prop (onShowTime). The child only receives the handler by
+  reference — it does not implement the logic itself. React event names use
+  camelCase (onClick).
 */
 
-import EventButton from './EventButton.jsx';
+import AlertClock from './AlertClock.jsx';
 
 function App() {
+  function showCurrentTime() {
+    const now = new Date();
+    alert('The current time is: ' + now.toLocaleTimeString());
+  }
+
   return (
     <div>
-      <EventButton />
+      <AlertClock onShowTime={showCurrentTime} />
     </div>
   );
 }
