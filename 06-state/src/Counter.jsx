@@ -1,23 +1,23 @@
 import { useState } from 'react';
+import CounterDisplay from './CounterDisplay.jsx';
 
-// Counter: demonstrates useState. We never mutate state directly — we always
-// call the updater function (setCount) to produce a new value. Using the
-// functional form (prev => prev + 1) is the safe way to update based on the
-// previous state.
-function Counter() {
-  const [count, setCount] = useState(0);
+// Counter holds a 'counter' state variable. Its initial value and the increment
+// amount are received as props (initialValue, increment). State is never mutated
+// directly — we always call setCounter with the functional updater form.
+function Counter({ initialValue = 0, increment = 1 }) {
+  const [counter, setCounter] = useState(initialValue);
 
-  const increment = () => setCount((prev) => prev + 1);
-  const decrement = () => setCount((prev) => prev - 1);
-  const reset = () => setCount(0);
+  const handleIncrement = () => setCounter((prev) => prev + increment);
+  const handleDecrement = () => setCounter((prev) => prev - increment);
+  const handleReset = () => setCounter(initialValue);
 
   return (
     <div>
       <h1>Counter</h1>
-      <p>Count: {count}</p>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-      <button onClick={reset}>Reset</button>
+      <CounterDisplay count={counter} />
+      <button onClick={handleIncrement}>Increment</button>
+      <button onClick={handleDecrement}>Decrement</button>
+      <button onClick={handleReset}>Reset</button>
     </div>
   );
 }
